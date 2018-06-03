@@ -1,0 +1,34 @@
+version: '3.6'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    working_dir: /app
+    volumes:
+      - .:/app
+      - .bundle:/bundle
+    command: 'bundle exec foreman start -f Procfile.dev'
+    environment:
+      TZ: 'Asia/Tokyo'
+      RAILS_ENV: 'development'
+      DATABASE_HOST: db
+      DATABASE_USER: 'root'
+      DATABASE_PASSWORD: ''
+      BUNDLE_PATH: '/bundle'
+    depends_on:
+      - db
+    ports:
+      - '80:80'
+      - '3035:3035'
+    tty: true
+    stdin_open: true
+
+  db:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'

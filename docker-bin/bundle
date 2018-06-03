@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd `dirname $0`
+./compose run --rm app ./bin/bundle $@

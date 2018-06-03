@@ -1,0 +1,15 @@
+#!/bin/sh
+
+cd `dirname $0`
+
+echo "\n=> docker-compose build"
+./compose build
+
+echo "\n=> bundle install"
+./bundle install
+
+echo "\n=> yarn install"
+./yarn install
+
+echo "\n=> rails db:setup"
+./rails db:setup

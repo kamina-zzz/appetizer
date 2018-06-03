@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd `dirname $0`
+./compose run --rm ${1:-app} bash
